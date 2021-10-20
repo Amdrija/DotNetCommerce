@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  logeecom.demoprojekat.pl:
+    image: andrijajlogeecom/dot_net_core_demoprojekat:web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings:demoDb=Server=db;Database=demoDb;User=sa;Password=Andrija_123;
+    ports:
+      - "8081:80"
+    volumes:
+      - ./uploads/images:/app/wwwroot/images 
+    depends_on:
+      - db
+
+  db:
+    image: andrijajlogeecom/dot_net_core_demoprojekat:db
+    environment:
+      - SA_PASSWORD=Andrija_123
+      - ACCEPT_EULA=Y
+    volumes:
+      - ./db:/var/opt/mssql/data
+
+
